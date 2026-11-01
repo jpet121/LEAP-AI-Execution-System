@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prompt Forge Execution State 1.0",
+  "type": "object",
+  "required": [
+    "run_id",
+    "contract_sha256",
+    "lifecycle_state",
+    "tasks",
+    "branches",
+    "user_decisions"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string"
+    },
+    "contract_sha256": {
+      "type": "string"
+    },
+    "lifecycle_state": {
+      "enum": [
+        "RUN_RELEASED",
+        "RUN_HELD",
+        "RUN_REJECTED",
+        "RUN_FAILED",
+        "RUNNING"
+      ]
+    },
+    "analytical_outcome": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tasks": {
+      "type": "object",
+      "additionalProperties": {
+        "enum": [
+          "PENDING",
+          "READY",
+          "RUNNING",
+          "COMPLETED",
+          "COMPLETED_WITH_LIMITATIONS",
+          "SKIPPED_INACTIVE_BRANCH",
+          "BLOCKED_USER_ONLY",
+          "BLOCKED_EVIDENCE",
+          "BLOCKED_CAPABILITY",
+          "FAILED"
+        ]
+      }
+    },
+    "branches": {
+      "type": "object"
+    },
+    "user_decisions": {
+      "type": "object"
+    },
+    "repair_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,22 @@
+RUNTIME AND HOST MODEL GUIDE
+
+After verifying and safely extracting 02_RUNTIME.zip:
+  python bootstrap.py
+  python run_compiler.py self-check
+  python run_compiler.py compile request.txt --adapter host --exchange exchange --out attempt-1
+
+The host adapter writes a *.request.json file with role instructions, input and output_schema. Read it, produce the role-specific JSON, and save:
+  {"request_sha256": "<request filename hash>", "output": <JSON role response>}
+to <same hash>.response.json in exchange/. Re-run compile with the same request and exchange, using a fresh empty output directory if writing results. Continue until Compiler returns a terminal result with no unfilled model role requests. This loop is handled by the host model, not by asking the user for a magic command or schema syntax. Pending host exchange attempts have exit 50 and diagnostics naming HostResponseRequired. Distinguish those orchestration handoffs from a final infrastructure failure.
+
+For library orchestration, invoke Compiler.compile repeatedly in memory, fill host exchanges between attempts, then write only the terminal result. Existing filled role exchanges are replayed and context-addressed; stale contexts do not match. Never share a writable exchange directory with untrusted sources.
+
+Independent Challenger gets only request_state and candidate_ir. Host instructions must enforce a fresh review; a valid PASS envelope does not prove the host actually reviewed semantics. HTTP mode uses separate stateless prompts and no Interpreter rationale. Optional HTTP mode requires explicit PF_MODEL_ENDPOINT (HTTPS chat-completions-compatible), PF_MODEL_NAME and PF_MODEL_API_KEY environment variables. It sends source text only to that configured model endpoint, never to task-world tools. Endpoint structured-output schema support varies; errors are FAILED rather than false releases.
+
+All supported commands are listed by run_compiler.py --help. Continue a pending result:
+  python run_compiler.py continue output/request_state.json --clarification "answer" --target Q1 --adapter host --exchange exchange --out next-output
+Use validate-ir IR --state request_state.json for structural validation. render IR --out DIR requires the original released receipt and sibling artifacts, replays them first, and refuses unverified IR. replay RECEIPT checks exact byte hashes, source identity, structural invariants, final Challenger binding and deterministic rendering.
+
+Contract XML 1.0 contains mandatory conceptual sections; each Node text is canonical JSON carrying all typed fields. Downstream consumers decode Node JSON, never reinterpret user English. No Runner is required or included.
+
+Security boundary: manifests/receipts detect accidental substitution relative to a trusted hash, not malicious replacement of every file and hash. Store/trust the independently delivered ZIP SHA-256 sidecar. Runtime never executes uploaded code as part of compilation; the trusted host may execute this packaged Python runtime.

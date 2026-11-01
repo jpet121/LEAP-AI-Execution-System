@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prompt Forge Runner Receipt 1.0",
+  "type": "object",
+  "required": [
+    "runner_version",
+    "run_id",
+    "contract_sha256",
+    "lifecycle_state",
+    "task_summary",
+    "postflight",
+    "artifacts"
+  ],
+  "properties": {
+    "runner_version": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "lifecycle_state": {
+      "enum": [
+        "RUN_RELEASED",
+        "RUN_HELD",
+        "RUN_REJECTED",
+        "RUN_FAILED"
+      ]
+    },
+    "analytical_outcome": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "DETERMINED",
+        "NO_DETERMINATION",
+        "INSUFFICIENT_EVIDENCE",
+        "NO_QUALIFYING_OPTION",
+        "EFFECTIVE_TIE",
+        "USER_DECISION_REQUIRED",
+        null
+      ]
+    },
+    "task_summary": {
+      "type": "object"
+    },
+    "branch_summary": {
+      "type": "object"
+    },
+    "evidence_summary": {
+      "type": "object"
+    },
+    "user_only_summary": {
+      "type": "object"
+    },
+    "challenge": {
+      "type": "object"
+    },
+    "postflight": {
+      "type": "object"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "runtime_event_chain_head": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

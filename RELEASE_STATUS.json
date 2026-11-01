@@ -1,0 +1,28 @@
+{
+  "project": "LEAP AI Execution System",
+  "review_date": "2026-10-31",
+  "compiler_version": "1.0.0",
+  "runner_version": "1.0.0",
+  "contract_version": "1.0",
+  "ir_version": "1.0",
+  "compiler_self_check": "PASS (deterministic smoke test; no semantic model)",
+  "runner_self_check": "PASS (deterministic smoke test)",
+  "four_day_example_preflight": "PASS (bare XML, no original receipt)",
+  "payroll_example_preflight": "PASS (bare XML, no original receipt)",
+  "full_original_compiler_release_receipts_available": false,
+  "full_original_runner_run_receipts_available": false,
+  "original_chatgpt_project_instructions_available": false,
+  "human_release_approval": "NOT RECORDED",
+  "independent_external_certification": false,
+  "actual_host_end_to_end_case_replay": "NOT EXECUTED FOR THIS PUBLICATION",
+  "source_mirror": "UNCHANGED FIRST PARTY SOURCE FROM SUPPLIED RELEASES",
+  "archive_bytes": "ORIGINAL ARCHIVES RECONSTRUCTABLE EXACTLY FROM PARTS",
+  "publication_readiness": "PUBLIC PORTFOLIO PACKAGE PREPARED; OWNER PUBLICATION AND NEW-ACCOUNT DEPLOYMENT APPROVAL NOT RECORDED",
+  "license_decision": "NO FIRST-PARTY OPEN-SOURCE LICENSE (SOURCE-VISIBLE PORTFOLIO)",
+  "third_party_license_inventory": "INSPECTED EMBEDDED WHEEL METADATA AND LICENSE PATHS; SEE THIRD_PARTY_NOTICES.md",
+  "normal_user_commands": [
+    "COMPILE",
+    "RUN"
+  ],
+  "new_account_invocation_verified": false
+}

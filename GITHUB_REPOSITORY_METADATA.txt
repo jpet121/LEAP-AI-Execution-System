@@ -1,0 +1,8 @@
+Repository name: LEAP-AI-Execution-System
+Display title: LEAP - AI Execution System
+About: Turn natural-language requests into structured XML contracts with COMPILE, then use RUN in a separate Runner to execute the work with traceable evidence and replay-verifiable receipts.
+Topics: ai-engineering, python, llm-orchestration, requirements-engineering, structured-output, xml, verification, human-in-the-loop, evidence-traceability, software-assurance
+Visibility: Public portfolio repository, at owner's discretion.
+License: None for LEAP first-party code. Do not select MIT, Apache, GPL, or any other first-party license.
+Third-party components: Bundled Python dependencies keep their own upstream licenses. See THIRD_PARTY_NOTICES.md.
+Normal user interaction: Enter a natural-language request and COMPILE. Upload the XML into the separate Runner and RUN.

@@ -1,0 +1,588 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Runner Host Response 1.0",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "action_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "COMPLETED",
+            "COMPLETED_WITH_LIMITATIONS"
+          ]
+        },
+        "started_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_dependency_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "evidence_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "subject_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "candidate_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "task_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "supported_claim": {
+                "type": "string",
+                "minLength": 1
+              },
+              "locator": {
+                "type": "string",
+                "minLength": 1
+              },
+              "limitations": {
+                "type": "string"
+              },
+              "segment_refs": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "evidence_id",
+              "source_id",
+              "subject_refs",
+              "candidate_refs",
+              "task_refs",
+              "supported_claim",
+              "locator",
+              "limitations"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "claim_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "subject_ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "derivation_type": {
+                "enum": [
+                  "OBSERVATION",
+                  "CALCULATION",
+                  "SYNTHESIS",
+                  "EVALUATION",
+                  "ASSUMPTION",
+                  "SCENARIO"
+                ]
+              },
+              "limitations": {
+                "type": "string"
+              },
+              "premise_claim_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "attributed_to": {
+                "const": "EXECUTOR"
+              }
+            },
+            "required": [
+              "claim_id",
+              "subject_ref",
+              "text",
+              "evidence_ids",
+              "derivation_type",
+              "limitations"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "media_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "content": {
+                "type": "string",
+                "minLength": 1
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "encoding": {
+                "enum": [
+                  "UTF8",
+                  "BASE64"
+                ]
+              }
+            },
+            "required": [
+              "artifact_id",
+              "path",
+              "media_type",
+              "content",
+              "role"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "evidence_accounting": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "SATISFIED",
+                  "PARTIALLY_SATISFIED",
+                  "UNSATISFIED",
+                  "NOT_APPLICABLE"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "limitations": {
+                "type": "string"
+              },
+              "claim_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "status",
+              "evidence_ids",
+              "limitations"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "requirement_checks": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "contract_object": {
+                "type": "object"
+              },
+              "status": {
+                "enum": [
+                  "SATISFIED",
+                  "PARTIALLY_SATISFIED",
+                  "UNSATISFIED",
+                  "NOT_APPLICABLE"
+                ]
+              },
+              "claim_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "limitations": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "contract_object",
+              "status",
+              "claim_ids",
+              "limitations"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "iteration_coverage": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "executor": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "type": "string",
+              "minLength": 1
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "role",
+            "version"
+          ],
+          "additionalProperties": false
+        },
+        "selected_subject_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "action_sha256",
+        "task_id",
+        "status",
+        "started_at",
+        "completed_at",
+        "input_dependency_ids",
+        "evidence",
+        "claims",
+        "artifacts",
+        "evidence_accounting",
+        "requirement_checks",
+        "iteration_coverage",
+        "limitations",
+        "executor",
+        "selected_subject_ref"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "branch_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "activate": {
+          "type": "boolean"
+        },
+        "task_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "action_sha256",
+        "branch_id",
+        "activate",
+        "task_ids",
+        "evidence_ids",
+        "rationale"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "control_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "proceed": {
+          "type": "boolean"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "member_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "action_sha256",
+        "control_id",
+        "proceed",
+        "rationale",
+        "count",
+        "member_refs"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "verdict": {
+          "enum": [
+            "PASS",
+            "CHALLENGE"
+          ]
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "detail": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "task_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "code",
+                  "detail",
+                  "task_id"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "reviewed_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "action_sha256",
+        "verdict",
+        "findings",
+        "reviewed_sha256"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "analytical_outcome": {
+          "enum": [
+            "DETERMINED",
+            "NO_DETERMINATION",
+            "INSUFFICIENT_EVIDENCE",
+            "NO_QUALIFYING_OPTION",
+            "EFFECTIVE_TIE",
+            "USER_DECISION_REQUIRED"
+          ]
+        },
+        "result": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output_artifact_ids": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          }
+        },
+        "evidence_limitations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "iteration_coverage": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          }
+        }
+      },
+      "required": [
+        "action_sha256",
+        "analytical_outcome",
+        "result",
+        "output_artifact_ids",
+        "evidence_limitations",
+        "iteration_coverage"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "action_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "blocked": {
+          "enum": [
+            "BLOCKED_EVIDENCE",
+            "BLOCKED_CAPABILITY"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "action_sha256",
+        "blocked",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

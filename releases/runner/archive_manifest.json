@@ -1,0 +1,92 @@
+{
+  "archive_filename": "02_RUNTIME.zip",
+  "archive_size_bytes": 26345965,
+  "archive_sha256": "69995be4539f3e9547cf6ac659c74704b34cf37733e1882fd4c8df7f73e73c57",
+  "parts": [
+    {
+      "filename": "02_RUNTIME.zip.part01",
+      "bytes": 1572864,
+      "sha256": "755617c888ca5245ab574a7a80d211fe2600bd7135ed901e096957ef6d0ebd99"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part02",
+      "bytes": 1572864,
+      "sha256": "75b5c2ffd8da382654db0ef4fcb32b263df708533c9dd20087b8069dcbf89720"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part03",
+      "bytes": 1572864,
+      "sha256": "42e82996d204e73e0adfdf1030f10575cf151b5a08ffee4bbce1ad5bd94952a8"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part04",
+      "bytes": 1572864,
+      "sha256": "3b7bcab60aaea932b6d11a4da3f778bf31db0a22c31491ac3dc947880d9f1381"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part05",
+      "bytes": 1572864,
+      "sha256": "7981bdb0b891dd816e9b5155fd6ff3fcbd742c1ab80784939a8dfe4dec8667b4"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part06",
+      "bytes": 1572864,
+      "sha256": "a136905d26e2a0eabea059b98217a4ce57a31d0793f562658c104e6e865d719c"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part07",
+      "bytes": 1572864,
+      "sha256": "85b134c6460b95f4327cf587fb1561aa5d29b87218d3dc2c3df42a3087bc1343"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part08",
+      "bytes": 1572864,
+      "sha256": "905d8ac26058a2656432bd086e8e88447921d00c2c1f1cf6db886ae765cdd679"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part09",
+      "bytes": 1572864,
+      "sha256": "da068965e78666647888462aba7aad4eeb402a42b47575941930bd5527a1190f"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part10",
+      "bytes": 1572864,
+      "sha256": "18954d48fcdbeeb4d9ea5dac2279539f74761c2d3fb1c880a844178305caaefb"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part11",
+      "bytes": 1572864,
+      "sha256": "234fe843875ce507e82170e867f3affefc8140191eed2a6ccf7f82c964caef89"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part12",
+      "bytes": 1572864,
+      "sha256": "eb441bd8fb1078271887c6f43d974af652e9333e68342d1b7cafda7eb6c5ff0a"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part13",
+      "bytes": 1572864,
+      "sha256": "cc75b91b07ad7756d44afbc9d64bbb1c89a57a67dce1d785e3b1db313b75db98"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part14",
+      "bytes": 1572864,
+      "sha256": "6426abe90c7e5c10292fa9a668fa82358dca8f9bdf6fc5b9603f23072b9dde38"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part15",
+      "bytes": 1572864,
+      "sha256": "29e70fc00ea9effc45685fe1e72eab3610a68e48b813f2511a828ed27ad139d9"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part16",
+      "bytes": 1572864,
+      "sha256": "25349716bb5dc1c76b41a4f3bcabb2af09c17df24982a97aa2e8d101e63c5a17"
+    },
+    {
+      "filename": "02_RUNTIME.zip.part17",
+      "bytes": 1180141,
+      "sha256": "1adfb3d9515091e129bc6851525f2d6e55ab241ce24708b7998e6afab9ee428f"
+    }
+  ]
+}

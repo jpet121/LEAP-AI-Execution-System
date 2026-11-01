@@ -1,0 +1,11 @@
+1. Create a ChatGPT Project with Python/file tools and the web tools your contracts need.
+2. Paste 00_PROJECT_INSTRUCTIONS_RUNNER.txt into its Project instructions.
+3. Upload 01_START_HERE_RUNNER.txt, 02_RUNTIME.zip and 03_RUNTIME_GUIDE.txt.
+4. In a new Project chat upload contract.xml or a complete Compiler release package,
+   plus the source PDFs/documents/transcripts it requires, and type RUN.
+5. Receive the finished task product and a replay-verifiable receipt. If a required
+   source/capability or USER_ONLY decision is missing, receive a precise RUN_HELD.
+
+Supports Compiler 1.0.0 / contract 1.0 / IR 1.0. Other versions reject explicitly.
+This is a runtime with a host reasoning protocol; the Python CLI alone cannot
+research or write task products. The ChatGPT Project host performs that work.

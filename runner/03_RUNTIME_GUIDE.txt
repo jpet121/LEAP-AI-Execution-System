@@ -1,0 +1,32 @@
+Extract 02_RUNTIME.zip. Run python bootstrap.py (offline dependency installation)
+when lxml/jsonschema are absent. Then python run_runner.py self-check.
+Read HOST_PROTOCOL.md inside the runtime. Python 3.11+ is required. Bundled wheels
+cover Linux CPython 3.11-3.14 and Windows CPython 3.14 x64.
+
+CLI file exchange (internal orchestration by the host, not end-user homework):
+ python run_runner.py preflight /path/to/contract.xml
+ python run_runner.py run /path/to/contract.xml --out /path/to/run_001 --adapter project
+Read run_001/action_packet.json, perform its role, and create response.json.
+ python run_runner.py step /path/to/run_001 --response /path/to/response.json --out /path/to/run_002
+Register tool/file bytes before referencing them:
+ python run_runner.py step /path/to/run_002 --source /path/to/observation.json --out /path/to/run_003
+Continue until the receipt says RUN_RELEASED or a genuine human/source dependency
+requires RUN_HELD. Each output directory is new and immutable.
+ python run_runner.py resume /path/to/held --user-event /path/to/human_event.json --out /path/to/continued
+ python run_runner.py verify /path/to/final_run
+
+Exit codes: 0 released/success; 10 held; 20 rejected; 30 invalid input;
+40 integrity failure; 50 internal failed run. A host checkpoint also uses 10 and
+must be continued internally. inspect summarizes only after integrity replay.
+
+The API avoids disk checkpoints per turn: preflight, start, observe, next_action,
+submit, user_event, export, verify. See HOST_PROTOCOL.md for exact JSON fields.
+Never import the Compiler. Never edit contract bytes. No API key is required.
+
+Independent sources retain their own identities. Register actual extracted text
+with attach_reference_text; use reference_pages/retrieve_reference per source.
+Comparative synthesis uses separately supported premise claims and explicit
+EXECUTOR attribution. Read the protocol before producing such responses.
+For unbound repetition controls, propose an explicit bind_iteration plan before
+work and obtain Challenger PASS. Never guess the body from XML order or numbering.
+Until stop judgments bind completed rounds; consumers wait until repetition ends.
