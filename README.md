@@ -13,6 +13,14 @@
 
 **Naming:** LEAP is the portfolio-facing system name. The supplied runtime identifies itself internally as **Prompt Forge Compiler** and **Prompt Forge Runner**. That implementation naming, all original source bytes, and archive bytes are preserved.
 
+## Origins, attribution, and independent development
+
+**Credit for the name and starting concept:** Chris Mercer coined **L.E.A.P. (Logically Engineered AI Prompts)** and published the original [LEAP design pattern](https://github.com/tomi-mercer/leap-design-pattern) in the NITWYT ecosystem. His work and the community at [AutomatedWith.tech](https://automatedwith.tech/) provided the conceptual starting point for my exploration of structured AI instructions.
+
+**What I built:** I studied and reverse-engineered that foundational approach, then independently adapted and extended the idea into the **LEAP AI Execution System** documented here. My version is a separate, daily-used, battle-tested personal workflow centered on a two-stage **Compiler → Runner** process, structured XML contracts, explicit execution gates, Python orchestration, evidence tracking, challenge/review checkpoints, and integrity verification. Those design and implementation choices are documented in this repository; the phrase *battle-tested* describes my practical use, not third-party certification or exhaustive production testing.
+
+**Relationship to NITWYT:** This repository is **not an official NITWYT release**, an endorsement by Chris Mercer, or a claim of authorship of his original LEAP name or pattern. It is my independently developed evolution of an acknowledged inspiration, not a copy represented as original. The original NITWYT LEAP pattern and this Compiler/Runner system have different scopes and architectures. Refer to the linked upstream project for its own specification and license.
+
 ## Use LEAP in two commands
 
 Normal daily use takes place inside two separately configured ChatGPT Projects:
