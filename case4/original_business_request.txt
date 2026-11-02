@@ -1,0 +1,46 @@
+BUSINESS CASE 4 — BUILD A PYTHON TRANSACTION RECONCILIATION API
+
+This is a SOFTWARE ENGINEERING REQUIREMENT, not a request for LEAP Runner to research or calculate transactions directly. COMPILE the complete, implementable application specification. After compilation, the exact released APPLICATION XML is intended for PEHAVOS v1.2 (with the compiler receipt) to prepare a verified Codex handoff. Do not modify the original requirements or produce executable application code during compilation.
+
+Business goal: Produce a small, auditable, synthetic USD ledger API with exact financial arithmetic and demonstrable failure behavior. It is a training application, not a real bank or production financial service.
+
+Technology and packaging requirements:
+T1. Python 3.12+, FastAPI, Pydantic v2 and PostgreSQL. Use parameterized SQL or a sound ORM; no SQL string concatenation of user input.
+T2. Provide runnable application source, tests, explicit dependencies, migrations, a Dockerfile, local container composition for PostgreSQL and the app, and reproducible setup instructions.
+T3. Add a GitHub Actions workflow that installs dependencies, starts disposable PostgreSQL, runs the tests and reports failure on any failed mandatory check.
+T4. Protect API endpoints with an X-API-Key header compared to an operator-supplied secret from the environment. Do not hardcode or log that secret. Missing/incorrect key returns HTTP 401.
+T5. All monetary amounts are decimal strings of the form digits followed by '.' and exactly two digits; reject exponents, negative signs for unsigned fields, NaN, infinity, booleans and binary floats. Maximum accepted amount is USD 999999999.99. A transaction amount must be strictly positive. Opening balance may be zero.
+T6. Account identifiers are uppercase ASCII strings matching [A-Z][A-Z0-9]{1,15}; transaction IDs use the same format.
+
+Functional API contract:
+F1. POST /v1/accounts accepts JSON {"account_id":"A100","opening_balance":"100.00"}. On new successful creation return HTTP 201 and the account ID, currency USD and exact balance. A duplicate account ID returns HTTP 409 and does not change the existing account.
+F2. GET /v1/accounts/{account_id} returns HTTP 200, account ID, currency USD and exact balance, or HTTP 404 for nonexistent ID.
+F3. POST /v1/accounts/{account_id}/transactions accepts JSON {"transaction_id":"T100","kind":"CREDIT","amount":"20.00"}. Kind is CREDIT or DEBIT only. The account must exist or return HTTP 404.
+F4. A new valid transaction produces exactly one persisted ledger row, atomically updates account balance, and returns HTTP 201 with transaction_id, account_id, kind, amount and resulting exact balance.
+F5. A repeated request with the SAME account ID, transaction ID, kind, and amount must be idempotent: HTTP 200 with the original result, no second ledger row, no new balance change.
+F6. Reusing the same (account ID, transaction ID) with a DIFFERENT kind or amount returns HTTP 409 and makes no change.
+F7. A DEBIT that would result in a negative account balance returns HTTP 422 and creates no ledger entry. A balance exactly equal to zero is allowed.
+F8. Concurrency on an identical transaction ID must yield at most one committed ledger row and one balance change. Define and enforce an appropriate database uniqueness/locking strategy.
+F9. The balance and persisted ledger changes must be in the SAME database transaction. If the persistence or commit fails, no HTTP 2xx success may claim a completed transfer. Preserve rollback/recovery semantics and report a non-2xx error, ordinarily HTTP 503 for unexpected database unavailability.
+F10. Invalid IDs, invalid amount representations, unknown kind, malformed JSON, and unsupported payload fields must be rejected with structured errors; HTTP 422 is acceptable for validation failures. No hidden coercion of invalid monetary values.
+F11. No external banking/payment gateway integration, no real money movement, no deployment to third-party production infrastructure without explicit owner authorization.
+
+Required deterministic acceptance sequence on a fresh disposable database with correct API key:
+A1. Create A100 with opening_balance 100.00: HTTP 201; balance 100.00.
+A2. CREDIT transaction T100 amount 20.00 to A100: HTTP 201; balance 120.00; one ledger row.
+A3. Repeat identical T100 request: HTTP 200; original resulting balance 120.00; still one ledger row.
+A4. Reuse T100 with amount 21.00: HTTP 409; balance remains 120.00; still one ledger row.
+A5. DEBIT T101 amount 50.00: HTTP 201; balance 70.00; two ledger rows.
+A6. DEBIT T102 amount 80.00: HTTP 422; balance remains 70.00; still two ledger rows.
+A7. GET A100: HTTP 200; USD 70.00.
+A8. Missing or wrong X-API-Key: HTTP 401, with no business operation performed.
+A9. Explicit concurrent duplicate submissions must not double-commit, and injected database failures must never appear as success.
+
+Engineering and acceptance requirements:
+- Preserve all clauses and their precedence in traceable requirements and tests.
+- Include independent expected-value acceptance fixtures, unit and real PostgreSQL integration tests, negative tests, concurrency test and representative failure-injection test.
+- PEHAVOS's existing coverage-first policy applies: meaningful 100% first-party Python line coverage gate before advanced assurance, no mock/patch frameworks, and reviewed branch coverage. Do not pretend that 100% coverage alone proves correctness.
+- If required services/dependencies are unavailable, report a bounded HOLD with missing evidence and still finish authorized engineering work. Do not claim an unexecuted PostgreSQL or CI run as PASS.
+- A verified Codex handoff is not an implemented app; an implemented app is not production deployment; neither implies human release approval.
+
+Required deliverables AFTER implementation (not during Compiler pass): source, schema/migration, API examples, complete tests and logs, container/CI configuration, architecture, operations and rollback instructions, security limitations, manifest of artifacts/hashes, and release-readiness report with outstanding human approvals. No real financial action or unapproved cloud deployment.

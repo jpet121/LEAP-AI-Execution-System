@@ -1,11 +1,11 @@
 # LEAP — AI Execution System
 ### Prompt Forge Compiler + Runner | evidence-aware AI workflow engineering
 
-[Architecture](docs/ARCHITECTURE.md) · [Quick start](QUICK_START.md) · [Verified Cases 1–3](evidence/cases-1-3/README.md) · [Candidate source delta](candidate/compiler-1.0.0-cases1-3/README.md) · [Verification](docs/VERIFICATION.md)
+[Architecture](docs/ARCHITECTURE.md) · [Quick start](QUICK_START.md) · [Final Compiler build](compiler/final-2026-11-02/README.md) · [Verified Cases 1–3](evidence/cases-1-3/README.md) · [Case 4 API](case4/README.md) · [Verification](docs/VERIFICATION.md)
 
 **LEAP turns natural-language business requests into inspectable contracts, then executes them through a separate evidence-aware Runner.** It is a human-directed system built with Python orchestration, XML/JSON schemas, explicit role-specific host exchanges, provenance checks, conditional execution and challenge checkpoints. The host model performs interpretation and task-world work; the Python runtimes enforce structure, hashes and legal execution states.
 
-**Engineering result (November 2, 2026):** A *controlled Compiler repair candidate* passed independent acceptance for three frozen business cases with the unchanged Runner 1.0.0. **The repaired candidate has not been promoted to the released Compiler.** A passing case is not proof of general model reliability, a formal verification certificate or authorization to act in a real financial system. Case 4 is a separate future workstream and is not part of these results.
+**Engineering result (November 2, 2026):** The controlled Compiler repair candidate passed scoped independent acceptance in three frozen business cases with the unchanged Runner 1.0.0. The owner has designated the identical revised runtime as **Prompt Forge Compiler 1.0.0 — Final Build (2026-11-02)**, preserved separately from the historical baseline. [Case 4](case4/README.md) is a separately scoped synthetic reconciliation API implementation, now published as inspectable source with CI; it remains **release HOLD**, not a production payment service. A successful case or coverage report is not a universal reliability or formal-verification certificate.
 
 ## Three end-to-end acceptance cases
 
@@ -39,13 +39,13 @@ Natural-language request + labeled reference material
 
 The early version demonstrated inspectable Python runtimes and two sample XML/result pairs, but did not independently establish fresh Compiler→Runner execution for critical multi-branch cases. The initial acceptance tests revealed wrong global branch exclusivity in reimbursement and vendor evaluation, a future award dependency blocking present vendor reporting, and missing evidence-source corroboration in the grant scenario.
 
-The [Cases 1–3 candidate](candidate/compiler-1.0.0-cases1-3/README.md) adds stronger Interpreter/Challenger/Reconciler prompts and a fail-closed release packager while **leaving the released core Python modules, Runner, contract schema, IR and frozen historical evidence unchanged**. Fresh compilations and Runner runs for the three frozen cases subsequently passed independent scoped reviews. The candidate stays versioned separately; production promotion and broad reliability claims remain on hold pending an adversarial regression gate and explicit human release decision.
+The [Cases 1–3 candidate](candidate/compiler-1.0.0-cases1-3/README.md) strengthened Interpreter/Challenger/Reconciler role prompts and added a fail-closed release packager while leaving the original Compiler and Runner, schema, IR and frozen evidence unchanged. Three subsequent fresh Compiler→Runner cases passed their frozen scoped reviews. The owner explicitly selected the byte-identical runtime as the [final Compiler build](compiler/final-2026-11-02/README.md); that designation does **not** erase gaps in generalization, external audit or formal verification.
 
 ## Use it
 
 For everyday use, the configured ChatGPT Compiler and Runner are separate Projects. Provide the request in the Compiler project, obtain the XML and release receipt, then submit them to the Runner project. The host requires Python/file tooling; no external model API key is needed for this ChatGPT-host workflow. The current Compiler project accepts ordinary natural-language requests without a magic command; `COMPILE` and `RUN` remain familiar shorthand in the owner’s established workflow. See [Quick Start](QUICK_START.md).
 
-For developers, first review [`compiler/source/`](compiler/source/), [`runner/source/`](runner/source/), [architecture](docs/ARCHITECTURE.md), and [setup](docs/SETUP.md). The source mirrors are visible for review and the original release manifests remain in [`releases/`](releases/). **The large original offline runtime ZIPs/parts are not currently stored in this Git tree**; do not claim a clean new-account installation from the repository alone. The candidate publishes its role-prompt/source delta, not its 75.7-MB bundled runtime archive. See [release availability](releases/README.md) and [settings gap](docs/PROJECT_SETTINGS_GAP.md).
+For developers, browse [final Compiler first-party source](compiler/final-2026-11-02/source/), [the unchanged Runner source](runner/source/), [Case 4's FastAPI/PostgreSQL implementation and tests](case4/reconciliation-api/), [architecture](docs/ARCHITECTURE.md), and [setup](docs/SETUP.md). The original baseline and frozen case evidence remain intact. **The 26.3-MB final Compiler offline wheelhouse ZIP and original historical runtime archives are not stored in this Git tree**; GitHub exposes the source plus hashes and instructions, not a complete offline-bundled installation. See [final build availability](compiler/final-2026-11-02/README.md), [release availability](releases/README.md) and [settings gap](docs/PROJECT_SETTINGS_GAP.md).
 
 ```bash
 python tools/verify_cases_1_3.py
@@ -56,7 +56,9 @@ python -m unittest discover -s tests -v
 
 - **Verified here:** three frozen case outcome comparisons; selected source-anchor fidelity, Runner artifact hashes and independent acceptance reports. See [individual reviews](evidence/cases-1-3/README.md).
 - **Not established:** fresh independent multiple-host execution, comprehensive stochastic-model reliability, all alternative PASS/FAIL/HOLD branches, formal proofs, or production authorization. A Python `PASS` or a `RUN_RELEASED` status is not independently sufficient.
-- **Next:** repeat compilations, negative/alternate-state tests, frozen-oracle regression, then human sign-off if warranted. **Case 4 stays separate.**
+- **Final Compiler designation:** explicitly owner-approved for their Compiler Project, while maintaining the original baseline and disclosing bounded frozen-case evidence.
+- **Case 4:** [browse source/tests](case4/reconciliation-api/), [standalone architecture and setup](case4/reconciliation-api/README.md), and [release HOLD](case4/reconciliation-api/evidence/RELEASE_READINESS.md). Independent pure-data checks and submitted local PostgreSQL replay are documented; hosted GitHub Actions must complete before revising its CI status. Publication does not imply human production authorization.
+- **Next:** continue regression/alternate-state testing and review actual [Case 4 Actions](../../actions) results.
 
 ## Origins and ownership
 

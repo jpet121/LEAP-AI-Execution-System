@@ -1,0 +1,710 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://promptforge.local/schemas/semantic_ir-1.0.json",
+  "title": "Prompt Forge Semantic IR 1.0",
+  "type": "object",
+  "required": [
+    "ir_version",
+    "source_state_sha256",
+    "objective",
+    "entities",
+    "tasks",
+    "candidate_sets",
+    "propositions",
+    "branches",
+    "dependencies",
+    "evidence_requirements",
+    "user_decisions",
+    "iteration_controls",
+    "outputs",
+    "result_policy"
+  ],
+  "properties": {
+    "ir_version": {
+      "const": "1.0"
+    },
+    "source_state_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entity"
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/task"
+      }
+    },
+    "candidate_sets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/candidateSet"
+      },
+      "default": []
+    },
+    "propositions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/proposition"
+      }
+    },
+    "branches": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/branch"
+      },
+      "default": []
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dependency"
+      },
+      "default": []
+    },
+    "evidence_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      },
+      "default": []
+    },
+    "user_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/userDecision"
+      },
+      "default": []
+    },
+    "iteration_controls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/iteration"
+      },
+      "default": []
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/output"
+      }
+    },
+    "result_policy": {
+      "$ref": "#/$defs/resultPolicy"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "anchor": {
+      "type": "object",
+      "required": [
+        "source_id",
+        "start",
+        "end",
+        "excerpt_sha256",
+        "event_id"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "excerpt_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "event_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "value": {
+      "type": "object",
+      "required": [
+        "kind",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "TEXT",
+            "NUMBER",
+            "BOOLEAN",
+            "DATE",
+            "DURATION",
+            "MONEY",
+            "PERCENT",
+            "QUANTITY",
+            "RANGE",
+            "SYMBOL",
+            "ENTITY_REF",
+            "SET",
+            "NULL"
+          ]
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/value"
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "min": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                }
+              }
+            }
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "normalization": {
+          "type": "object",
+          "required": [
+            "input",
+            "multiplier",
+            "offset"
+          ],
+          "properties": {
+            "input": {
+              "type": "string"
+            },
+            "multiplier": {
+              "type": "string"
+            },
+            "offset": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "entity": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "task": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "scope_ref",
+        "source_anchors"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "RESEARCH",
+            "RETRIEVE",
+            "SUMMARIZE",
+            "EXPLAIN",
+            "COMPARE",
+            "EVALUATE",
+            "RANK",
+            "RECOMMEND",
+            "SELECT",
+            "VERIFY",
+            "CALCULATE",
+            "PLAN",
+            "CREATE",
+            "TRANSFORM",
+            "MONITOR",
+            "CUSTOM"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "scope_ref": {
+          "type": "string"
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "proposition": {
+      "type": "object",
+      "required": [
+        "id",
+        "subject_ref",
+        "predicate",
+        "relation",
+        "object",
+        "modality",
+        "polarity",
+        "authority",
+        "scope_ref",
+        "source_anchors"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject_ref": {
+          "type": "string"
+        },
+        "predicate": {
+          "type": "string"
+        },
+        "relation": {
+          "enum": [
+            "EQ",
+            "NEQ",
+            "LT",
+            "LTE",
+            "GT",
+            "GTE",
+            "IN",
+            "NOT_IN",
+            "HAS",
+            "LACKS",
+            "INCLUDES",
+            "EXCLUDES",
+            "BEFORE",
+            "AFTER",
+            "DEPENDS_ON",
+            "REQUIRES",
+            "PROHIBITS",
+            "ALLOWS",
+            "PREFERS",
+            "RESERVED_TO"
+          ]
+        },
+        "object": {
+          "$ref": "#/$defs/value"
+        },
+        "modality": {
+          "enum": [
+            "REQUIRED",
+            "PROHIBITED",
+            "PREFERRED",
+            "PERMITTED",
+            "INFORMATIONAL"
+          ]
+        },
+        "polarity": {
+          "enum": [
+            "POSITIVE",
+            "NEGATIVE"
+          ]
+        },
+        "authority": {
+          "enum": [
+            "USER",
+            "COMPILER_DERIVED",
+            "SYSTEM"
+          ]
+        },
+        "scope_ref": {
+          "type": "string"
+        },
+        "condition_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidateSet": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "members",
+        "scope_ref"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "generation_rule": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scope_ref": {
+          "type": "string"
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "branch": {
+      "type": "object",
+      "required": [
+        "id",
+        "condition",
+        "scope_ref",
+        "active_node_refs"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "condition": {
+          "type": "string"
+        },
+        "scope_ref": {
+          "type": "string"
+        },
+        "exclusivity_group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "active_node_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "dependency": {
+      "type": "object",
+      "required": [
+        "id",
+        "predecessor_ref",
+        "successor_ref",
+        "relation"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "predecessor_ref": {
+          "type": "string"
+        },
+        "successor_ref": {
+          "type": "string"
+        },
+        "relation": {
+          "enum": [
+            "BEFORE",
+            "REQUIRES",
+            "DEPENDS_ON"
+          ]
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "id",
+        "subject_ref",
+        "requirement",
+        "dependent_ref",
+        "authority"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject_ref": {
+          "type": "string"
+        },
+        "requirement": {
+          "type": "string"
+        },
+        "dependent_ref": {
+          "type": "string"
+        },
+        "authority": {
+          "enum": [
+            "USER",
+            "COMPILER_DERIVED",
+            "SYSTEM"
+          ]
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "userDecision": {
+      "type": "object",
+      "required": [
+        "id",
+        "subject_ref",
+        "reserved_to",
+        "dependent_refs",
+        "source_anchors"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject_ref": {
+          "type": "string"
+        },
+        "reserved_to": {
+          "const": "USER"
+        },
+        "dependent_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "iteration": {
+      "type": "object",
+      "required": [
+        "id",
+        "mode",
+        "authority"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "NONE",
+            "BOUNDED_COUNT",
+            "UNTIL_CONDITION",
+            "OVER_COLLECTION"
+          ]
+        },
+        "count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "collection_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stop_condition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authority": {
+          "enum": [
+            "USER",
+            "COMPILER_DERIVED",
+            "SYSTEM"
+          ]
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "output": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "requirements"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string"
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "resultPolicy": {
+      "type": "object",
+      "required": [
+        "allowed_states"
+      ],
+      "properties": {
+        "allowed_states": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "DETERMINED",
+              "NO_DETERMINATION",
+              "NO_QUALIFYING_OPTION",
+              "INSUFFICIENT_EVIDENCE",
+              "EFFECTIVE_TIE",
+              "USER_DECISION_REQUIRED"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

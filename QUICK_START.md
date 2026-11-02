@@ -8,10 +8,12 @@
 
 These are two separately configured ChatGPT Projects with different runtimes and responsibility boundaries. Neither Python runtime calls an external model API by itself; the ChatGPT host supplies the model and permitted tools.
 
-## Candidate acceptance (not production promotion)
+## Owner-designated final Compiler
 
-The [Cases 1–3 controlled repair candidate](candidate/compiler-1.0.0-cases1-3/README.md) was tested using **one new Compiler test project and the existing Runner 1.0.0**, in fresh Runner sessions. Do not overwrite the baseline Compiler project or replace the Runner. Cases 1–3 passed the frozen acceptance comparisons; Case 4 was excluded.
+The owner selected the [November 2 final Compiler build](compiler/final-2026-11-02/README.md), byte-identical to the accepted Cases 1–3 repair candidate, as their final Compiler. Set the Compiler Project Instructions from `compiler/final-2026-11-02/00_PROJECT_INSTRUCTIONS_COMPILER.txt`. For full offline setup, use the owner-supplied original `COMPILER REVISED 02NOV2026.zip` (not present in the Git tree), extract its three files, and upload the runtime ZIP along with start/guide documents. The internal runtime remains `1.0.0`. The unchanged Runner v1.0.0 still executes verified Compiler XML + receipt in new sessions.
+
+Case 4 is independent of normal Compiler→Runner tasks: it is a [synthetic ledger API project](case4/README.md). To develop it, read its own README and start the disposable PostgreSQL environment; it is not a financial production deployment.
 
 ## Reproduction limitation
 
-The Git repository contains inspectable source mirrors, the candidate delta and the three run-evidence ZIPs. **It does not currently contain all original offline runtime ZIP/parts or original production ChatGPT Project Instructions.** Therefore a new-account full ChatGPT deployment cannot be reproduced solely from GitHub checkout. The candidate project instruction text is included for inspection, but not evidence that original production configuration was reconstructed. See [settings gap](docs/PROJECT_SETTINGS_GAP.md) and [release availability](releases/README.md).
+The Git repository contains the original source mirrors, explicit final Compiler source snapshot and Project Instructions, candidate delta, and three frozen-case Runner evidence ZIPs. **It does not contain the owner's complete offline runtime ZIP or the historical original Project Instructions.** A full offline clean install therefore still requires the owner's separately retained runtime bundle. Case 4 includes source, dependencies, tests, Docker/Compose and GitHub Actions to exercise a disposable database; publication is not deployment. See [settings gap](docs/PROJECT_SETTINGS_GAP.md) and [release availability](releases/README.md).

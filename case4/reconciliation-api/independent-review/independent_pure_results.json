@@ -1,0 +1,6 @@
+{
+  "independent_pure_logic_checks": 12493,
+  "mismatches": 0,
+  "errors": [],
+  "scope": "money parsing, fixed-point arithmetic, Pydantic schemas; no database/API runtime"
+}

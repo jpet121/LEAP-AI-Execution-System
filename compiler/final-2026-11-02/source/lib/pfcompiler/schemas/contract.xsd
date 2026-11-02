@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="PFContract"><xs:complexType><xs:sequence>
+<xs:element name="Objective" type="xs:string"/>
+<xs:element name="Entities"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="Tasks"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="CandidateSets"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="Propositions"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="Branches"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="Dependencies"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="EvidenceRequirements"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="UserDecisions"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="IterationControls"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="Outputs"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="ResultPolicy"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="Provenance"><xs:complexType><xs:sequence><xs:element name="Node" type="xs:string" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+</xs:sequence><xs:attribute name="contract_version" type="xs:string" use="required"/><xs:attribute name="compiler_version" type="xs:string" use="required"/><xs:attribute name="ir_version" type="xs:string" use="required"/><xs:attribute name="source_state_sha256" type="xs:string" use="required"/><xs:attribute name="verified_ir_sha256" type="xs:string" use="required"/><xs:attribute name="contract_id" type="xs:string" use="required"/></xs:complexType></xs:element></xs:schema>
