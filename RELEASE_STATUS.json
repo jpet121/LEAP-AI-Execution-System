@@ -14,10 +14,14 @@
   "case4_submitted_local_replay": "PASS_REPORTED",
   "case4_independent_pure_and_integrity_checks": "PASS",
   "case4_separate_live_postgres_replay": "NOT_REPRODUCED_BY_INDEPENDENT_REVIEW",
-  "case4_hosted_github_ci": "FIRST_RUN_FAILED_DUE_TO_SERVICE_OPTION_PARSING; FIX_PENDING_REPLAY",
+  "case4_hosted_github_ci": "PASS_ON_GITHUB_ACTIONS_PYTHON_3_12_AND_3_13",
   "case4_human_release": "NOT GRANTED",
   "offline_compiler_wheelhouse_in_git": false,
   "real_financial_transactions": false,
   "notes": "Portfolio publication and owner Compiler designation are distinct from independent production deployment authorization.",
-  "case4_from_frozen_cases_1_3": "EXCLUDED"
+  "case4_from_frozen_cases_1_3": "EXCLUDED",
+  "case4_ci_verified_run": "https://github.com/jpet121/LEAP-AI-Execution-System/actions/runs/41482364607",
+  "portfolio_integrity_ci_verified_run": "https://github.com/jpet121/LEAP-AI-Execution-System/actions/runs/41482364784",
+  "case4_delivery_archive_sha256": "85961522d6aef3393e58c53f76fe8c097383d61d682124b84b590295650b482b",
+  "case4_release": "HOLD: human approval NOT GRANTED; independent separate-host live PostgreSQL replay not completed"
 }

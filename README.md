@@ -58,7 +58,7 @@ python -m unittest discover -s tests -v
 - **Not established:** fresh independent multiple-host execution, comprehensive stochastic-model reliability, all alternative PASS/FAIL/HOLD branches, formal proofs, or production authorization. A Python `PASS` or a `RUN_RELEASED` status is not independently sufficient.
 - **Final Compiler designation:** explicitly owner-approved for their Compiler Project, while maintaining the original baseline and disclosing bounded frozen-case evidence.
 - **Case 4:** [browse source/tests](case4/reconciliation-api/), [standalone architecture and setup](case4/reconciliation-api/README.md), and [release HOLD](case4/reconciliation-api/evidence/RELEASE_READINESS.md). Independent pure-data checks and submitted local PostgreSQL replay are documented; hosted GitHub Actions must complete before revising its CI status. Publication does not imply human production authorization.
-- **Next:** continue regression/alternate-state testing and review actual [Case 4 Actions](../../actions) results.
+- **Next:** continue regression/alternate-state testing and maintain adversarial regression tests; consult [Case 4 Actions](https://github.com/jpet121/LEAP-AI-Execution-System/actions/workflows/case4-reconciliation-api.yml) for ongoing CI results.
 
 ## Origins and ownership
 
