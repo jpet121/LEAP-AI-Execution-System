@@ -1,0 +1,27 @@
+{
+  "status": "SCOPE_PASS_RELEASE_HOLD",
+  "origin_archive_sha256": "44a28212006cea9f34eacad516708e920b0b096e524ee18d39de97beb292f7d1",
+  "delivery_zip_sha256": "85961522d6aef3393e58c53f76fe8c097383d61d682124b84b590295650b482b",
+  "implementation_zip_sha256": "e5f59b8f46db32a97fcac2e65f761804a30271b331d104458220d35ee06874e7",
+  "submitted_sha256_list_check": "PASS",
+  "frozen_handoff_files_matched": 40,
+  "frozen_handoff_files_total": 40,
+  "frozen_unchanged": true,
+  "implementation_sha256_entries_checked": 129,
+  "implementation_sha256_entries_match": 129,
+  "independent_pure_checks": 12493,
+  "independent_pure_mismatches": 0,
+  "application_ast_modules_checked": 10,
+  "application_ast_syntax_errors": 0,
+  "application_ast_mock_framework_imports": 0,
+  "postgres_http_live_replay": "NOT_RUN_IN_THIS_ENVIRONMENT",
+  "hosted_github_actions": "NOT_RUN",
+  "python_313_check": "NOT_RUN",
+  "lean_proof": "NOT_RUN",
+  "human_release": "NOT_GRANTED",
+  "notes": [
+    "No evidence of real banking action or production deployment",
+    "Provided GitHub Actions file is inside an inner ZIP and not activated by merely uploading the ZIP to the repository",
+    "TESTING README B204 re-audit status is stale compared with prior independent F01 closure; documentation should be updated"
+  ]
+}

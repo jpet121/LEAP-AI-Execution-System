@@ -1,0 +1,830 @@
+{
+  "contract_sha256": "e231a27ce46032cfb8746471290f8170f3a61e4c0e8de05098841c2d913c6907",
+  "cases": [
+    {
+      "id": "SRC-01",
+      "input": {
+        "artifact": "source/contract.xml",
+        "receipt": "source/compiler_receipt.json"
+      },
+      "expected": {
+        "compiler_status": "COMPILE_RELEASED",
+        "contract_sha256": "e231a27ce46032cfb8746471290f8170f3a61e4c0e8de05098841c2d913c6907",
+        "contract_unmodified": true,
+        "application_code_created_at_compile": false
+      },
+      "oracle_source": "P_COMPILE_NOT_CODE; P_HANDOFF; receipt contract_sha256",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "source",
+      "test_method": "STATIC",
+      "requirement_ids": [
+        "R-001",
+        "R-003"
+      ]
+    },
+    {
+      "id": "SCOPE-01",
+      "input": {
+        "review": "implementation boundary"
+      },
+      "expected": {
+        "training_only": true,
+        "external_bank_or_gateway_integrations": 0,
+        "production_deployments_without_owner_approval": 0
+      },
+      "oracle_source": "P_SYNTHETIC; P_F11_BANKING; P_F11_DEPLOY",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "policy",
+      "test_method": "STATIC",
+      "requirement_ids": [
+        "R-002",
+        "R-047",
+        "R-048"
+      ]
+    },
+    {
+      "id": "STACK-01",
+      "input": {
+        "run": "python -m app version and import validation"
+      },
+      "expected": {
+        "python_major_minor_min": [
+          3,
+          12
+        ],
+        "framework": "FastAPI",
+        "schema_library_major": 2,
+        "database": "PostgreSQL",
+        "unsafe_sql_string_concatenation": false
+      },
+      "oracle_source": "P_T1_PYTHON; P_T1_FASTAPI; P_T1_PYDANTIC; P_T1_POSTGRES; P_T1_SQL",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "delivery",
+      "test_method": "STATIC",
+      "requirement_ids": [
+        "R-004",
+        "R-005",
+        "R-006",
+        "R-007",
+        "R-008"
+      ]
+    },
+    {
+      "id": "PKG-01",
+      "input": {
+        "inspect": "implementation ZIP and clean local compose build"
+      },
+      "expected": {
+        "runnable_source": true,
+        "tests": true,
+        "dependencies": true,
+        "migrations": true,
+        "Dockerfile": true,
+        "app_postgres_compose": true,
+        "setup_instructions": true
+      },
+      "oracle_source": "P_T2_SOURCE through P_T2_SETUP; O_FUTURE",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "delivery",
+      "test_method": "BUILD",
+      "requirement_ids": [
+        "R-009",
+        "R-010",
+        "R-011",
+        "R-012",
+        "R-013",
+        "R-014",
+        "R-015"
+      ]
+    },
+    {
+      "id": "CI-01",
+      "input": {
+        "run": "GitHub Actions in a fresh runner"
+      },
+      "expected": {
+        "postgres_service": "disposable",
+        "dependencies_installed": true,
+        "mandatory_check_failure_blocks_job": true,
+        "result": "actual run evidence required"
+      },
+      "oracle_source": "P_T3_CI; EV_CI",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "delivery",
+      "test_method": "CI",
+      "requirement_ids": [
+        "R-016"
+      ]
+    },
+    {
+      "id": "AUTH-01",
+      "input": {
+        "method": "POST",
+        "path": "/v1/accounts",
+        "headers": {},
+        "json": {
+          "account_id": "Z900",
+          "opening_balance": "1.00"
+        }
+      },
+      "expected": {
+        "http_status": 401,
+        "account_created": false
+      },
+      "oracle_source": "P_T4_HEADER; P_T4_401; P_A8",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "auth",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-017",
+        "R-020"
+      ]
+    },
+    {
+      "id": "AUTH-02",
+      "input": {
+        "method": "GET",
+        "path": "/v1/accounts/A100",
+        "headers": {
+          "X-API-Key": "incorrect"
+        }
+      },
+      "expected": {
+        "http_status": 401,
+        "data_disclosure": false
+      },
+      "oracle_source": "P_T4_HEADER; P_A8",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "auth",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-017"
+      ]
+    },
+    {
+      "id": "AUTH-03",
+      "input": {
+        "review": "environment, source, logs, error bodies"
+      },
+      "expected": {
+        "secret_hardcoded": false,
+        "secret_logged": false,
+        "secret_error_echo": false
+      },
+      "oracle_source": "P_T4_NO_HARDCODE; P_T4_NO_LOG",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "auth",
+      "test_method": "STATIC",
+      "requirement_ids": [
+        "R-018",
+        "R-019"
+      ]
+    },
+    {
+      "id": "VAL-MONEY-01",
+      "input": {
+        "field": "amount",
+        "values": [
+          "1e2",
+          "-1.00",
+          "NaN",
+          "Infinity",
+          true,
+          1.0,
+          100
+        ]
+      },
+      "expected": {
+        "rejected": true,
+        "coercions": 0,
+        "structured_error": true
+      },
+      "oracle_source": "P_T5_FORMAT; P_T5_INVALID; P_F10_INVALID",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "validation",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-021",
+        "R-022",
+        "R-046"
+      ]
+    },
+    {
+      "id": "VAL-MONEY-02",
+      "input": {
+        "field": "amount",
+        "values": [
+          "0.00",
+          "1000000000.00"
+        ]
+      },
+      "expected": {
+        "rejected": true,
+        "balance_unchanged": true
+      },
+      "oracle_source": "P_T5_MAX; P_T5_POSITIVE",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "validation",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-023",
+        "R-024"
+      ]
+    },
+    {
+      "id": "VAL-MONEY-03",
+      "input": {
+        "field": "opening_balance",
+        "values": [
+          "0.00",
+          "999999999.99"
+        ]
+      },
+      "expected": {
+        "accepted_if_new_account_id": true,
+        "preserve_exact_decimal_strings": true
+      },
+      "oracle_source": "P_T5_MAX; P_T5_OPENING",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "validation",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-021",
+        "R-023",
+        "R-025"
+      ]
+    },
+    {
+      "id": "VAL-MONEY-04",
+      "input": {
+        "field": "opening_balance",
+        "values": [
+          "-0.01",
+          "1.0",
+          0.5,
+          "1e2"
+        ]
+      },
+      "expected": {
+        "rejected": true,
+        "no_account_created": true
+      },
+      "oracle_source": "P_T5_FORMAT; P_T5_OPENING; P_T5_INVALID",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "validation",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-025"
+      ]
+    },
+    {
+      "id": "VAL-ID-01",
+      "input": {
+        "identifier_type": "account_id and transaction_id",
+        "values": [
+          "a1",
+          "1A",
+          "A",
+          "AAAAAAAAAAAAAAAAA",
+          "A_1",
+          "É1",
+          "Ａ1"
+        ]
+      },
+      "expected": {
+        "rejected": true,
+        "regex": "^[A-Z][A-Z0-9]{1,15}$"
+      },
+      "oracle_source": "P_T6_ACCOUNT; P_T6_TX",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "validation",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-026",
+        "R-027",
+        "R-046"
+      ]
+    },
+    {
+      "id": "VAL-ID-02",
+      "input": {
+        "identifier_type": "account_id and transaction_id",
+        "values": [
+          "A1",
+          "Z9",
+          "A999999999999999"
+        ]
+      },
+      "expected": {
+        "accepted_identifiers": true
+      },
+      "oracle_source": "P_T6_ACCOUNT; P_T6_TX",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "validation",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-026",
+        "R-027"
+      ]
+    },
+    {
+      "id": "VAL-PAYLOAD-01",
+      "input": {
+        "payloads": [
+          "malformed JSON",
+          "unknown field",
+          "kind=TRANSFER",
+          "kind=credit",
+          "missing required field"
+        ]
+      },
+      "expected": {
+        "structured_non_success_response": true,
+        "no_business_write": true
+      },
+      "oracle_source": "P_F10_INVALID; P_F3_KIND",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "validation",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-035",
+        "R-046"
+      ]
+    },
+    {
+      "id": "A0",
+      "input": {
+        "database": "fresh disposable PostgreSQL",
+        "header": "correct X-API-Key"
+      },
+      "expected": {
+        "preconditions_required": true,
+        "production_db_used": false
+      },
+      "oracle_source": "P_A_PRE; acceptance precondition",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "sequence",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-049"
+      ]
+    },
+    {
+      "id": "A1",
+      "input": {
+        "method": "POST",
+        "path": "/v1/accounts",
+        "json": {
+          "account_id": "A100",
+          "opening_balance": "100.00"
+        }
+      },
+      "expected": {
+        "http_status": 201,
+        "account_id": "A100",
+        "currency": "USD",
+        "balance": "100.00"
+      },
+      "oracle_source": "P_F1_ROUTE; P_F1_SUCCESS; P_A1",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "sequence",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-028",
+        "R-029",
+        "R-050"
+      ]
+    },
+    {
+      "id": "A2",
+      "input": {
+        "method": "POST",
+        "path": "/v1/accounts/A100/transactions",
+        "json": {
+          "transaction_id": "T100",
+          "kind": "CREDIT",
+          "amount": "20.00"
+        }
+      },
+      "expected": {
+        "http_status": 201,
+        "balance": "120.00",
+        "ledger_rows_for_A100": 1,
+        "transaction_id": "T100",
+        "kind": "CREDIT",
+        "amount": "20.00"
+      },
+      "oracle_source": "P_F3_ROUTE; P_F4_ROW; P_F4_SUCCESS; P_A2",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "sequence",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-034",
+        "R-035",
+        "R-037",
+        "R-038",
+        "R-051"
+      ]
+    },
+    {
+      "id": "A3",
+      "input": {
+        "repeat_exactly": "A2"
+      },
+      "expected": {
+        "http_status": 200,
+        "original_resulting_balance": "120.00",
+        "current_balance": "120.00",
+        "ledger_rows_for_A100": 1
+      },
+      "oracle_source": "P_F5_REPLAY; P_A3",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "sequence",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-039",
+        "R-052"
+      ]
+    },
+    {
+      "id": "A4",
+      "input": {
+        "same_account_tx_id": "A100/T100",
+        "kind": "CREDIT",
+        "amount": "21.00"
+      },
+      "expected": {
+        "http_status": 409,
+        "balance": "120.00",
+        "ledger_rows_for_A100": 1
+      },
+      "oracle_source": "P_F6_CONFLICT; P_A4",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "sequence",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-040",
+        "R-053"
+      ]
+    },
+    {
+      "id": "A5",
+      "input": {
+        "method": "POST",
+        "path": "/v1/accounts/A100/transactions",
+        "json": {
+          "transaction_id": "T101",
+          "kind": "DEBIT",
+          "amount": "50.00"
+        }
+      },
+      "expected": {
+        "http_status": 201,
+        "balance": "70.00",
+        "ledger_rows_for_A100": 2
+      },
+      "oracle_source": "P_A5; P_F4_SUCCESS",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "sequence",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-035",
+        "R-038",
+        "R-054"
+      ]
+    },
+    {
+      "id": "A6",
+      "input": {
+        "method": "POST",
+        "path": "/v1/accounts/A100/transactions",
+        "json": {
+          "transaction_id": "T102",
+          "kind": "DEBIT",
+          "amount": "80.00"
+        }
+      },
+      "expected": {
+        "http_status": 422,
+        "balance": "70.00",
+        "ledger_rows_for_A100": 2
+      },
+      "oracle_source": "P_F7_OVERDRAFT; P_A6",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "sequence",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-041",
+        "R-055"
+      ]
+    },
+    {
+      "id": "A7",
+      "input": {
+        "method": "GET",
+        "path": "/v1/accounts/A100"
+      },
+      "expected": {
+        "http_status": 200,
+        "account_id": "A100",
+        "currency": "USD",
+        "balance": "70.00"
+      },
+      "oracle_source": "P_F2_ROUTE; P_F2_SUCCESS; P_A7",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "sequence",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-031",
+        "R-032",
+        "R-056"
+      ]
+    },
+    {
+      "id": "A8",
+      "input": {
+        "test": [
+          "missing X-API-Key",
+          "incorrect X-API-Key"
+        ]
+      },
+      "expected": {
+        "http_status": 401,
+        "no_business_operation": true
+      },
+      "oracle_source": "P_A8; P_T4_401",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "sequence",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-020",
+        "R-057"
+      ]
+    },
+    {
+      "id": "A9-CONCURRENT",
+      "input": {
+        "account": "C200",
+        "opening_balance": "0.00",
+        "two_simultaneous": "C200/T200 CREDIT 1.00"
+      },
+      "expected": {
+        "ledger_rows_for_C200": 1,
+        "balance": "1.00",
+        "no_duplicate_commit": true
+      },
+      "oracle_source": "P_F8_CONCUR; P_A9",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "concurrency",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-043",
+        "R-058"
+      ]
+    },
+    {
+      "id": "A9-FAULT",
+      "input": {
+        "inject": "PostgreSQL persistence or commit failure through explicit seam"
+      },
+      "expected": {
+        "http_success": false,
+        "normally_http_status": 503,
+        "commit_visible": false,
+        "balance_and_ledger_atomic": true
+      },
+      "oracle_source": "P_F9_ATOMIC; P_F9_ERROR; P_A9; EV_FAILURE",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "fault",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-044",
+        "R-045",
+        "R-058"
+      ]
+    },
+    {
+      "id": "ACC-DUP",
+      "input": {
+        "method": "POST",
+        "path": "/v1/accounts",
+        "json": {
+          "account_id": "A100",
+          "opening_balance": "55.00"
+        }
+      },
+      "expected": {
+        "http_status": 409,
+        "existing_balance_unchanged": true
+      },
+      "oracle_source": "P_F1_DUP",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "negative",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-030"
+      ]
+    },
+    {
+      "id": "ACC-404",
+      "input": {
+        "method": "GET",
+        "path": "/v1/accounts/Q999"
+      },
+      "expected": {
+        "http_status": 404
+      },
+      "oracle_source": "P_F2_NOT_FOUND",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "negative",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-033"
+      ]
+    },
+    {
+      "id": "TX-404",
+      "input": {
+        "method": "POST",
+        "path": "/v1/accounts/Q999/transactions",
+        "json": {
+          "transaction_id": "T900",
+          "kind": "CREDIT",
+          "amount": "1.00"
+        }
+      },
+      "expected": {
+        "http_status": 404,
+        "ledger_rows_created": 0
+      },
+      "oracle_source": "P_F3_404",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "negative",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-036"
+      ]
+    },
+    {
+      "id": "TX-KIND-CONFLICT",
+      "input": {
+        "same_account_tx_id": "A100/T100",
+        "kind": "DEBIT",
+        "amount": "20.00"
+      },
+      "expected": {
+        "http_status": 409,
+        "balance_unchanged": true
+      },
+      "oracle_source": "P_F6_CONFLICT",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "negative",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-040"
+      ]
+    },
+    {
+      "id": "TX-ZERO",
+      "input": {
+        "account": "B200",
+        "opening_balance": "5.00",
+        "transaction": {
+          "transaction_id": "T200",
+          "kind": "DEBIT",
+          "amount": "5.00"
+        }
+      },
+      "expected": {
+        "http_status": 201,
+        "balance": "0.00"
+      },
+      "oracle_source": "P_F7_ZERO",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "negative",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-042"
+      ]
+    },
+    {
+      "id": "DB-ATOMIC",
+      "input": {
+        "inject": "insert failure after account UPDATE before commit"
+      },
+      "expected": {
+        "committed_account_change": false,
+        "committed_ledger_row": false,
+        "http_success": false
+      },
+      "oracle_source": "P_F9_ATOMIC; P_F9_ERROR",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "fault",
+      "test_method": "INTEGRATION",
+      "requirement_ids": [
+        "R-037",
+        "R-044",
+        "R-045"
+      ]
+    },
+    {
+      "id": "OPS-TRACE",
+      "input": {
+        "review": "66 source IDs and bidirectional requirement to acceptance mapping"
+      },
+      "expected": {
+        "missing_required_proposition_ids": [],
+        "orphan_requirements": [],
+        "orphan_acceptances": []
+      },
+      "oracle_source": "P_ENG_TRACE",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "assurance",
+      "test_method": "STATIC",
+      "requirement_ids": [
+        "R-059"
+      ]
+    },
+    {
+      "id": "OPS-TESTS",
+      "input": {
+        "review": "independent tests and real integration execution"
+      },
+      "expected": {
+        "frozen_oracles": true,
+        "unit_and_integration_evidence_required": true,
+        "real_postgres": true,
+        "concurrency": true,
+        "database_fault": true
+      },
+      "oracle_source": "P_ENG_FIXTURES; EV_UNIT; EV_PG",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "assurance",
+      "test_method": "STATIC",
+      "requirement_ids": [
+        "R-060"
+      ]
+    },
+    {
+      "id": "OPS-COVERAGE",
+      "input": {
+        "run": "coverage.py with whole first-party source scope"
+      },
+      "expected": {
+        "statement_coverage_percent": 100,
+        "branch_coverage_reviewed": true,
+        "tests_meaningful": true,
+        "mock_frameworks_used": false
+      },
+      "oracle_source": "P_ENG_100; P_ENG_BANMOCK; P_ENG_BRANCH",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "assurance",
+      "test_method": "COVERAGE",
+      "requirement_ids": [
+        "R-061",
+        "R-062",
+        "R-063"
+      ]
+    },
+    {
+      "id": "OPS-HOLD",
+      "input": {
+        "blocked_dependency": "hypothetical unavailable PostgreSQL, CI or dependency"
+      },
+      "expected": {
+        "status": "HOLD",
+        "unexecuted_work_never_pass": true,
+        "missing_evidence_listed": true
+      },
+      "oracle_source": "P_ENG_HOLD; P_ENG_NO_FAKE_PASS",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "assurance",
+      "test_method": "STATIC",
+      "requirement_ids": [
+        "R-064",
+        "R-065"
+      ]
+    },
+    {
+      "id": "OPS-STAGE",
+      "input": {
+        "review": "Codex handoff and production gate"
+      },
+      "expected": {
+        "handoff_not_app": true,
+        "app_not_production_deployment": true,
+        "human_approval": "NOT_GRANTED"
+      },
+      "oracle_source": "P_ENG_SEPARATE; P_F11_DEPLOY",
+      "implementation_status": "NOT_YET_EXECUTED",
+      "category": "policy",
+      "test_method": "STATIC",
+      "requirement_ids": [
+        "R-003",
+        "R-048",
+        "R-066"
+      ]
+    }
+  ],
+  "note": "Source-derived expectations; no implementation observation recorded."
+}

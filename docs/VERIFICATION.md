@@ -32,3 +32,13 @@ python -m unittest discover -s tests -v
 ## Not demonstrated
 
 Complete stochastic/alternate-branch reliability, fully isolated model evaluators, formal proofs, independent separate-host replay of every run, new-account ChatGPT Project installation and permission grant, or explicit authorization to promote this candidate. Also, the original baseline source-identity caveats remain historical facts, even though the three case documents have subsequently been corroborated against frozen prompts/attachments within their individual reviews. **Case 4 is outside this evaluation.**
+
+## November 2 final Compiler and Case 4 publication
+
+The user authorized designating the **byte-identical Cases 1–3 repair runtime** as the final Compiler Project build, without changing its internal `1.0.0` version. The historical October baseline remains immutable under `compiler/source/`; the full first-party final source snapshot appears in `compiler/final-2026-11-02/source/`. Its original 26.3-MB offline ZIP and third-party wheelhouse are not published here. `python tools/verify_portfolio_publication.py` checks the final first-party source snapshot against the original package's SHA-256 values.
+
+[Case 4](../case4/README.md) is **separate** from Cases 1–3. The submitted implementation reported locally passing PostgreSQL HTTP, mutation and coverage gates; an additional independent review verified source integrity and pure-data behavior but could not rerun live PostgreSQL or hosted CI. The repository now contains source, frozen acceptance tests and a PostgreSQL GitHub Actions workflow. Hosted runs must be checked directly and any failure reported; their presence alone does not establish PASS. Human release remains NOT_GRANTED and no real payments have been made.
+
+### Hosted Case 4 CI evidence — November 2, 2026
+
+The published Case 4 workflow actually ran on GitHub and returned **success** on [run 41482364607](https://github.com/jpet121/LEAP-AI-Execution-System/actions/runs/41482364607), with two jobs for Python 3.12 and Python 3.13 running disposable PostgreSQL, HTTP acceptance, unit/branch coverage, advanced tests, mutation, mypy and Bandit. [Portfolio integrity run 41482364784](https://github.com/jpet121/LEAP-AI-Execution-System/actions/runs/41482364784) also succeeded. This is newer evidence than the retained original `evidence/RELEASE_READINESS.md`, which correctly records that hosted CI had *not* run at initial handoff. No independent separate-host audit of the full live service or human production release approval is asserted; **release HOLD** continues.

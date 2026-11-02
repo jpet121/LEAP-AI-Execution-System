@@ -12,6 +12,8 @@ jobs:
           python-version: '3.12'
       - name: Verify historical source and case evidence
         run: python tools/verify_repo.py
+      - name: Verify final Compiler and Case 4 published source snapshot
+        run: python tools/verify_portfolio_publication.py
       - name: Verify three exact exported runs
         run: python tools/verify_cases_1_3.py
       - name: Run repository tests

@@ -1,0 +1,22 @@
+{
+  "verdict": "HOLD",
+  "local_verification": "PASS",
+  "frozen_http_tests": 4,
+  "unit_methods": 9,
+  "advanced_methods": 7,
+  "hypothesis_examples": 150,
+  "model_http_operations": 250,
+  "races": {
+    "repetitions": 200,
+    "identical_key_races": 100,
+    "independent_key_races": 100,
+    "seconds": 5.87713749500017
+  },
+  "mutants_killed": 6,
+  "real_database_fault_points": 3,
+  "missing": [
+    "Hosted GitHub Actions run",
+    "External final audit",
+    "Human release authorization"
+  ]
+}

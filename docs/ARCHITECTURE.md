@@ -27,3 +27,7 @@ The Runner does not import the Compiler and may not modify the XML bytes. It acc
 ## Important iteration limitation
 
 Compiler 1.0 does not bind a `BOUNDED_COUNT` or `UNTIL_CONDITION` control to a task body. Runner therefore requires an explicit host `bind_iteration` plan and Challenger approval before work. It does not infer the body from XML order or labeling. Unsupported body shapes or unresolved plans stay held/rejected. Source: the included unchanged `runner/source/COMPATIBILITY.md` and `runner/source/KNOWN_LIMITATIONS.md`.
+
+## Separate Case 4 application
+
+[Case 4 — Synthetic USD Reconciliation API](../case4/README.md) is a distinct implementation exercise, not a plugin or privileged extension to the Compiler/Runner. It uses FastAPI and Pydantic input guards, psycopg parameterized queries, a PostgreSQL account lock and atomic ledger/balance write, and idempotent transaction IDs. The `X-API-Key` secret is supplied by the local operator, never stored here. External banking and live payment operations are outside the design. Refer to its application README for full boundaries, tests, and limitations. Engineering release remains HOLD pending independent live-host verification, hosted CI and human authorization.

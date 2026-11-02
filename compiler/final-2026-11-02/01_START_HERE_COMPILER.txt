@@ -1,0 +1,9 @@
+PROMPT FORGE COMPILER 1.0.0
+
+Create a new ChatGPT Project and paste 00_PROJECT_INSTRUCTIONS_COMPILER.txt into Project Instructions. Upload this file, 02_RUNTIME.zip and 03_RUNTIME_GUIDE.txt. Start a chat with Python execution available and type an ordinary request.
+
+The Compiler will return verified XML and a portable brief, ask a material clarification, explain an unsupported meaning, or report an actual compiler failure. It describes future authorized work; it does not do that work.
+
+No Runner or API key is required in host-model mode. Python runtime dependencies are bundled for Linux x86_64 CPython 3.11–3.14 and Windows x86_64 CPython 3.14. Other environments need compatible versions of the pinned dependencies preinstalled. Package setup is performed by the host using the runtime guide.
+
+Runtime tests and fixture coverage are not proof of a host model's semantic accuracy. See the supplied implementation/verification reports for exactly what was tested. Hosted ChatGPT Project UI deployment must be verified in the target account.

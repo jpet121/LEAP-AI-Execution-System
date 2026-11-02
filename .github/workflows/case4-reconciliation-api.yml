@@ -1,0 +1,66 @@
+name: Case 4 synthetic ledger — PostgreSQL acceptance
+on:
+  push:
+    paths:
+      - 'case4/**'
+      - '.github/workflows/case4-reconciliation-api.yml'
+  pull_request:
+    paths:
+      - 'case4/**'
+      - '.github/workflows/case4-reconciliation-api.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  postgres-acceptance:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.12', '3.13']
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: ledger
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 2s
+          --health-timeout 2s --health-retries 30
+    env:
+      TEST_PG_DSN: postgresql://postgres@127.0.0.1:5432/ledger
+      PYTHONUNBUFFERED: '1'
+    defaults:
+      run:
+        working-directory: case4/reconciliation-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: case4/reconciliation-api/requirements.lock
+      - name: Install pinned dependencies and package
+        run: |
+          python -m pip install -r requirements.lock
+          python -m pip install --no-build-isolation --no-deps .
+      - name: Apply disposable PostgreSQL schema
+        run: python -c 'import os; from app.db import migrate; migrate(os.environ["TEST_PG_DSN"])'
+      - name: Coverage-first unit gate (100% lines and branches)
+        run: python codex/tools/coverage_gate.py --root . --source app --tests unit_tests --json-out evidence/coverage_first.json
+      - name: Run frozen real HTTP acceptance sequence
+        run: python scripts/run_acceptance.py
+      - name: Advanced assurance (including concurrency/faults)
+        run: python -m unittest discover -s advanced_tests -v
+      - name: Mutation checks
+        run: python scripts/mutation.py
+      - name: Type and static-security scans
+        run: |
+          python -m mypy app
+          python -m bandit -r app
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: case4-evidence-${{ matrix.python }}
+          path: case4/reconciliation-api/evidence/

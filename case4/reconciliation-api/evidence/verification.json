@@ -1,0 +1,121 @@
+{
+  "status": "PASS",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "checks": [
+    {
+      "name": "dependencies",
+      "command": [
+        "/workspace/case4-venv/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "returncode": 0,
+      "seconds": 0.30769848823547363,
+      "log": "evidence/dependencies.log"
+    },
+    {
+      "name": "migrate",
+      "command": [
+        "/workspace/case4-venv/bin/python",
+        "-c",
+        "import os; from app.db import migrate; migrate(os.environ[\"TEST_PG_DSN\"])"
+      ],
+      "returncode": 0,
+      "seconds": 0.26947021484375,
+      "log": "evidence/migrate.log"
+    },
+    {
+      "name": "coverage",
+      "command": [
+        "/workspace/case4-venv/bin/python",
+        "codex/tools/coverage_gate.py",
+        "--root",
+        ".",
+        "--source",
+        "app",
+        "--tests",
+        "unit_tests",
+        "--json-out",
+        "evidence/coverage_first.json"
+      ],
+      "returncode": 0,
+      "seconds": 2.05619740486145,
+      "log": "evidence/coverage.log"
+    },
+    {
+      "name": "acceptance",
+      "command": [
+        "/workspace/case4-venv/bin/python",
+        "scripts/run_acceptance.py"
+      ],
+      "returncode": 0,
+      "seconds": 1.635880708694458,
+      "log": "evidence/acceptance.log"
+    },
+    {
+      "name": "advanced",
+      "command": [
+        "/workspace/case4-venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "advanced_tests",
+        "-v"
+      ],
+      "returncode": 0,
+      "seconds": 13.945783376693726,
+      "log": "evidence/advanced.log"
+    },
+    {
+      "name": "mutation",
+      "command": [
+        "/workspace/case4-venv/bin/python",
+        "scripts/mutation.py"
+      ],
+      "returncode": 0,
+      "seconds": 6.068866491317749,
+      "log": "evidence/mutation.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "/workspace/case4-venv/bin/python",
+        "-m",
+        "mypy",
+        "app"
+      ],
+      "returncode": 0,
+      "seconds": 0.1726832389831543,
+      "log": "evidence/typecheck.log"
+    },
+    {
+      "name": "security_lint",
+      "command": [
+        "/workspace/case4-venv/bin/python",
+        "-m",
+        "bandit",
+        "-r",
+        "app"
+      ],
+      "returncode": 0,
+      "seconds": 0.1642923355102539,
+      "log": "evidence/security_lint.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "/workspace/case4-venv/bin/python",
+        "-m",
+        "build",
+        "--no-isolation"
+      ],
+      "returncode": 0,
+      "seconds": 0.8739216327667236,
+      "log": "evidence/build.log"
+    }
+  ],
+  "scope": "Local developer validation, not hosted CI or external audit"
+}

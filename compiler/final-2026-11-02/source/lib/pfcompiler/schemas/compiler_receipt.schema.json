@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prompt Forge Compiler Receipt 1.0",
+  "type": "object",
+  "required": [
+    "status",
+    "compiler_version",
+    "ir_version",
+    "contract_version",
+    "source_state_sha256",
+    "verified_ir_sha256",
+    "contract_sha256",
+    "portable_brief_sha256",
+    "challenge_verdict",
+    "internal_repair_count",
+    "validation",
+    "clarification_event_ids",
+    "transitions",
+    "timing",
+    "resource_policy",
+    "artifacts"
+  ],
+  "properties": {
+    "status": {
+      "enum": [
+        "COMPILE_RELEASED",
+        "COMPILE_NEEDS_CLARIFICATION",
+        "COMPILE_UNSUPPORTED",
+        "COMPILE_FAILED"
+      ]
+    },
+    "compiler_version": {
+      "const": "1.0.0"
+    },
+    "ir_version": {
+      "const": "1.0"
+    },
+    "contract_version": {
+      "const": "1.0"
+    },
+    "source_state_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "verified_ir_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "contract_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "portable_brief_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "challenge_verdict": {
+      "enum": [
+        "PASS",
+        "CHALLENGE",
+        null
+      ]
+    },
+    "internal_repair_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "clarification_event_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "transitions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "RECEIVED",
+          "INTERPRETING",
+          "VALIDATING_IR",
+          "CHALLENGING",
+          "CLASSIFYING",
+          "RECONCILING",
+          "VERIFIED",
+          "RENDERING",
+          "FINAL_VALIDATION",
+          "RELEASED",
+          "NEEDS_CLARIFICATION",
+          "UNSUPPORTED",
+          "FAILED"
+        ]
+      }
+    },
+    "timing": {
+      "type": "object",
+      "required": [
+        "total_seconds",
+        "model_seconds"
+      ],
+      "properties": {
+        "total_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "model_seconds": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "resource_policy": {
+      "type": "object",
+      "required": [
+        "max_source_bytes",
+        "max_events",
+        "max_ir_nodes",
+        "max_repairs",
+        "max_artifact_bytes"
+      ],
+      "properties": {
+        "max_source_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_events": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_ir_nodes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_repairs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_artifact_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z_]+\\.(json|xml|txt)$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    }
+  },
+  "additionalProperties": false
+}

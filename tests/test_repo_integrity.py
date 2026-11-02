@@ -16,8 +16,10 @@ class TestRepositoryIntegrity(unittest.TestCase):
         self.assertEqual(len(check()['historical_examples']), 2)
     def test_public_stated_limitations(self):
         text=(ROOT/'README.md').read_text()
-        self.assertIn('not been promoted',text)
+        self.assertIn('Final Build (2026-11-02)',text)
         self.assertIn('Case 4',text)
-        self.assertIn('not currently stored',text)
+        self.assertIn('release HOLD',text)
+        self.assertIn('not stored in this Git tree',text)
+        self.assertTrue((ROOT/'compiler/final-2026-11-02/source/lib/pfcompiler/compiler.py').is_file())
 
 if __name__ == '__main__': unittest.main()
