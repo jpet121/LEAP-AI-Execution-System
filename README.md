@@ -1,5 +1,5 @@
 # LEAP-AI Execution System
-### Compiler + Runner | evidence-aware AI workflow engineering
+### Compiler + Runner | Evidence-Aware AI workflow engineering
 
 [Architecture](docs/ARCHITECTURE.md) · [Quick start](QUICK_START.md) · [Final Compiler build](compiler/final-2026-11-02/README.md) · [Verified Cases 1–3](evidence/cases-1-3/README.md) · [Case 4 API](case4/README.md) · [Verification](docs/VERIFICATION.md)
 
