@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "test": "frozen_ir_gate",
+      "status": "PASS",
+      "detail": "historical negative controls and positive representation probes"
+    },
+    {
+      "test": "compiler_release_packager",
+      "status": "PASS",
+      "detail": "complete ZIP verified; duplicate and missing artifact rejected"
+    },
+    {
+      "test": "runner_schema_preflight_probes",
+      "status": "PASS",
+      "detail": "2 in-memory corrected probes rendered to temporary XML; Runner 1.0 preflight PASS (no model compile or work execution)"
+    },
+    {
+      "test": "core_and_runner_immutability",
+      "status": "PASS",
+      "detail": "core engine, schemas and Runner bytes unchanged"
+    },
+    {
+      "test": "semantic_role_prompt_presence",
+      "status": "PASS",
+      "detail": "3 role controls present (static content check only)"
+    },
+    {
+      "test": "compiler_smoke",
+      "status": "PASS",
+      "detail": "{'status': 'PASS', 'scope': 'deterministic installation smoke test with protocol stub', 'runner_required': False, 'semantic_model_tested': False}"
+    }
+  ]
+}

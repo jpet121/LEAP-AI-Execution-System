@@ -1,0 +1,38 @@
+BUSINESS CASE 1 — FICTIONAL BATTALION REIMBURSEMENT AUDIT
+
+COMPILE this business request into a faithful, inspectable contract for subsequent evaluation. Do not perform any reimbursement, payment, communication, or external system modification. Use only these supplied synthetic records and rules. Do not invent policy.
+
+Business context: Alpha, Bravo, and Charlie are fictional battalions, each with a $175.00 USD reimbursement cap for this batch. Headquarters has a $100.00 cap.
+
+Rules:
+R1. Evaluate the twelve claims in the precise row order given below.
+R2. Claim IDs must be unique. The first occurrence is eligible for ordinary evaluation; every later occurrence is REJECTED as DUPLICATE_CLAIM, regardless of amount or receipt.
+R3. Only a receipt marked YES is valid. Missing receipt means REJECTED as MISSING_RECEIPT.
+R4. An eligible claim is APPROVED in full only if adding it to that unit's previously approved total does not exceed the unit cap. Exactly meeting the cap is allowed. Otherwise REJECTED as EXCEEDS_UNIT_CAP.
+R5. Do not partially approve claims or split them. Rejected claims never consume allowance.
+R6. Apply rejection checks in priority order: DUPLICATE_CLAIM, then MISSING_RECEIPT, then EXCEEDS_UNIT_CAP. Preserve this precedence even if more than one condition might apply.
+R7. Use exact USD decimal arithmetic to the cent. Do not use binary floating-point approximations for money.
+R8. Every original row must appear once in the result; do not create or omit rows.
+R9. The evaluation must not disburse funds, issue checks, write to an accounting service, or perform external research.
+
+Data columns: ROW | CLAIM_ID | UNIT | RECEIPT | USD_AMOUNT
+01 | A01 | Alpha | YES | 99.95
+02 | A02 | Alpha | YES | 75.05
+03 | A03 | Alpha | YES | 0.01
+04 | B01 | Bravo | YES | 176.00
+05 | B02 | Bravo | YES | 120.00
+06 | H01 | Headquarters | YES | 100.00
+07 | H02 | Headquarters | YES | 5.00
+08 | C01 | Charlie | NO | 70.00
+09 | C02 | Charlie | YES | 45.25
+10 | C03 | Charlie | YES | 50.00
+11 | C04 | Charlie | YES | 79.75
+12 | A01 | Alpha | YES | 20.00
+
+Required outputs:
+O1. Row-by-row decisions: original row number, claim ID, unit, requested amount, APPROVED/REJECTED, amount approved, and controlling policy code or approval explanation.
+O2. Per-unit reconciliation: limit, approved total, rejected-row count, and unused balance.
+O3. Batch reconciliation: processed rows, approvals, rejections, and grand total approved in USD.
+O4. Explanation of each rejected claim and confirmation that no money was disbursed.
+
+If essential input is missing or inconsistent, disclose the exact limitation without inventing an answer. Compilation is not authorization to execute financial actions. Preserve all requirements, data and ordering semantics in the contract or correctly bind them to an immutable, available source. Do not treat a successful compilation as proof that the business calculations were executed.

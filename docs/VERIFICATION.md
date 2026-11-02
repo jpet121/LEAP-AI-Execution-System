@@ -1,30 +1,34 @@
-# Verification  -  observed results and unverified claims
+# Verification — scopes and evidence
 
-**Review date:** October 31, 2026 (project portfolio build). 
+**Updated November 2, 2026.** Separate technical integrity, semantic fidelity, execution outcome and human authorization.
 
-## Executed here
+## Historical baseline (October 31, 2026)
 
-| Action | Observed output | Scope |
-| --- | --- | --- |
-| `python run_compiler.py self-check` | `status: PASS`, `runner_required: false`, `semantic_model_tested: false` | Compiler deterministic smoke test with a stub model protocol. |
-| `python run_runner.py self-check` | `status: PASS`, `runner_version: 1.0.0` | Runner deterministic smoke test. |
-| Runner `preflight` on four-day XML | `status: PASS`; contract SHA-256 `0b3a9bcb800abc6c85901d072aff85a344bcc777e2944b99e51d2bf4b3495adc` | XML structural/identity checks. Source provenance asserted and receipt absent. |
-| Runner `preflight` on payroll XML | `status: PASS`; contract SHA-256 `1e2f8a19b5dad1ef44bd6be54ccfafd504d4dac96ff50ff3d165c01637f6e292` | XML structural/identity checks. Source provenance asserted and receipt absent. |
-| Archive and mirror construction | SHA-256 and equality checks in repo scripts | Checks bytes, not correctness of task semantics. |
+The released Compiler and Runner 1.0.0 self-checks passed deterministic local smoke tests. Two older provided XML examples passed Runner structural preflight. That historical publication did **not** independently rerun full Compiler→Runner model reasoning. The original large offline runtime ZIP/parts are **not present in this Git tree** even though archive manifests survive. The release source mirrors are available for review, but a checkout does not reconstruct an offline deployment.
 
-Preflight diagnostics for both case contracts explicitly included:
+## Controlled improvement and independent frozen acceptance (November 2, 2026)
 
-> Source provenance asserted by Compiler; original source events not independently reproduced. Bare XML: no external Compiler receipt binding supplied.
+- **Phase 1 diagnostics:** the frozen historical negative controls identified global-exclusivity defects in Case 1 and Case 2, an incorrectly active future award dependency, and a provenance gap for Case 3. Initial diagnostic status did *not* constitute repair acceptance.
+- **Repair candidate:** packaged role-prompt controls and fail-closed archive production. Deterministic candidate checks passed, but those checks alone do not establish semantic correctness.
+- **Three fresh test cases:** new Compiler contracts were executed by the unchanged Runner. Business outputs matched their frozen independent oracle; case-by-case independent reviews examined contract/source mapping and exported Runner artifacts, including per-file SHA-256 ledgers.
 
-## Not established by this work
+| Case | Compiler contract SHA-256 | Business result | Accepted scope |
+|---|---|---|---|
+| 1 | `806591f09156807a2a2818ba23f7af9fd97a03f96b3be8b0243204339d7cdc91` | 7 approved / 5 rejected / $570 | Original rule fidelity and claim scope |
+| 2 | `58037993f157e7419bfe583f9c0e9f11460778759be95acc9fd0d6865dfe5638` | ATLAS HOLD / BEACON FAIL / CEDAR PASS | Vendor-specific mixed statuses and future human gating |
+| 3 | `f8a4fa3130af62a7a5ee9bb9eace0849498bd6b1daa9f986e4fafe971c51b282` | Business HOLD; $1,850 proposed | Imported source trust boundary, genuine approval absent, no final manifest |
 
-- No full, fresh host-model `COMPILE -> RUN -> RUN_RELEASED` research replay was performed for these historical examples.
-- The particular source claims in the October 2026 payroll and workweek reports have not been independently re-researched for this portfolio release.
-- No 100% coverage, formal verification proof, mutation score, large fuzzing campaign, independent certification, ChatGPT UI install certification or production deployment approval has been demonstrated for **these specific supplied artifacts**.
-- The source bundle's own `KNOWN_LIMITATIONS.md` and `COMPATIBILITY.md` describe broader recorded historical acceptance activities; this project did not independently reproduce those reports or treat narrative claims as test receipts.
+Inspect the [original prompts, exact Runner ZIPs, receipts, final results and independent assessments](../evidence/cases-1-3/README.md). The [candidate source delta](../candidate/compiler-1.0.0-cases1-3/README.md) is separate from released source.
 
-## Reproducibility
+## Run checks
 
-The full original offline packages are preserved byte-for-byte via browser-uploadable segments. `tools/reassemble_runtime.py` verifies each part and the final restored archive. `tools/verify_repo.py` checks archive segment hashes, archived code mirrors, and provided example XML shapes/hashes. Project unit tests run against the repository packaging itself, not the host's subjective judgments.
+```bash
+python tools/verify_cases_1_3.py
+python -m unittest discover -s tests -v
+```
 
-A true independent assurance campaign would include original user requests, frozen compiler receipt and release artifacts, source observations, run receipt/ledger, full artifact checksums, test commands, independent corroboration of material source claims, and verified human release decision. None should be fabricated to improve portfolio appearance.
+`tools/verify_cases_1_3.py` verifies archive checksum, manifest-listed entries, frozen contract SHA, receipt identity and postflight fields. This checks **integrity**, not model comprehension. CI checks repository packaging, not live model-host ability.
+
+## Not demonstrated
+
+Complete stochastic/alternate-branch reliability, fully isolated model evaluators, formal proofs, independent separate-host replay of every run, new-account ChatGPT Project installation and permission grant, or explicit authorization to promote this candidate. Also, the original baseline source-identity caveats remain historical facts, even though the three case documents have subsequently been corroborated against frozen prompts/attachments within their individual reviews. **Case 4 is outside this evaluation.**
