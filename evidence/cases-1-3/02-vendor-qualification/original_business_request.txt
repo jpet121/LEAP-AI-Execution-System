@@ -1,0 +1,40 @@
+BUSINESS CASE 2 — FICTIONAL ENTERPRISE DOCUMENT PLATFORM QUALIFICATION
+
+COMPILE this request for later evidence-constrained evaluation. All vendors and records below are invented for this test. Evaluate ONLY the supplied data; do not browse, research vendors, purchase anything, contact a supplier, or invent corroboration.
+
+Four mandatory procurement conditions:
+M1. SAML 2.0 single sign-on must be VERIFIED YES.
+M2. All application and document data must be hosted within the United States, VERIFIED YES.
+M3. Audit logs must be retained at least 365 days, with a VERIFIED numeric retention period.
+M4. Annual subscription cost must be at most USD $40,000, with a VERIFIED numeric cost.
+No mandatory requirement may be waived, averaged into a score, or substituted with another benefit.
+
+Evidence rules:
+E1. VERIFIED YES and VERIFIED NO establish yes/no compliance and noncompliance respectively.
+E2. VERIFIED numeric values may be used to evaluate numeric thresholds.
+E3. UNVERIFIED is not evidence of compliance or a verified violation.
+E4. Evaluate all four criteria for every vendor, even if one is already disqualifying.
+
+Vendor records:
+ATLAS: SAML VERIFIED YES; US-only hosting UNVERIFIED; audit retention VERIFIED 400 days; annual subscription VERIFIED $37,000 USD.
+BEACON: SAML VERIFIED YES; US-only hosting VERIFIED YES; audit retention VERIFIED 730 days; annual subscription VERIFIED $44,000 USD.
+CEDAR: SAML VERIFIED YES; US-only hosting VERIFIED YES; audit retention VERIFIED 365 days; annual subscription VERIFIED $39,000 USD.
+
+Overall business-status logic:
+PASS only when all four mandatory conditions are verified and satisfied.
+FAIL when at least one mandatory requirement is verified and violated; FAIL takes precedence over missing evidence.
+HOLD when no verified violation exists but at least one mandatory condition remains unverified.
+
+Recommendation rules:
+If exactly one vendor is PASS, recommend it as the only currently eligible candidate.
+If more than one vendor is PASS, rank ONLY the PASS vendors by lowest verified price, using alphabetical order for ties.
+If no vendor is PASS, return the explicit outcome NO_ELIGIBLE_VENDOR, with reasons.
+Never recommend a HOLD or FAIL vendor as eligible. Never claim a vendor was awarded a contract. Final award authority is reserved exclusively to a later authenticated human decision.
+
+Required outputs:
+O1. Full vendor-by-requirement matrix, with VERIFIED PASS, VERIFIED FAIL or UNVERIFIED for each condition.
+O2. Exactly one overall PASS/FAIL/HOLD status for each vendor, with reason and evidence status.
+O3. Eligible recommendation or NO_ELIGIBLE_VENDOR, as controlled by the above rules.
+O4. Missing verification actions, contract-award prerequisites, and confirmation that procurement was not executed.
+
+The case intentionally includes missing evidence. Do not ask the user to invent the missing verification merely to compile; encode that uncertainty and the resulting conditional logic faithfully.
