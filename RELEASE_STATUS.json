@@ -14,9 +14,10 @@
   "case4_submitted_local_replay": "PASS_REPORTED",
   "case4_independent_pure_and_integrity_checks": "PASS",
   "case4_separate_live_postgres_replay": "NOT_REPRODUCED_BY_INDEPENDENT_REVIEW",
-  "case4_hosted_github_ci": "PENDING_FIRST_REPOSITORY_RUN",
-  "case4_human_release": "NOT_GRANTED",
+  "case4_hosted_github_ci": "FIRST_RUN_FAILED_DUE_TO_SERVICE_OPTION_PARSING; FIX_PENDING_REPLAY",
+  "case4_human_release": "NOT GRANTED",
   "offline_compiler_wheelhouse_in_git": false,
   "real_financial_transactions": false,
-  "notes": "Portfolio publication and owner Compiler designation are distinct from independent production deployment authorization."
+  "notes": "Portfolio publication and owner Compiler designation are distinct from independent production deployment authorization.",
+  "case4_from_frozen_cases_1_3": "EXCLUDED"
 }
